@@ -1,0 +1,8 @@
+[default]
+REPO_URL = "https://git.effectivetrade.ru/EFTR/EFTR2.git"
+SRC_FOLDER = "tools/"
+LOCAL_REPO_PATH = ""
+REPO_URL_FOR_CHANGELOGS = ""
+SRC_FOLDER_FOR_CHANGELOGS = ""
+LAST_COMMIT_HASH = ""
+SAVE_RESULTS_IN_REPO = "False"

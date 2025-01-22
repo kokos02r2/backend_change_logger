@@ -1,74 +1,74 @@
 # Backend Change Logger
 
-## Описание проекта
+## Project Description
 
-**Backend Change Logger** — это инструмент для автоматического сбора изменений из репозиториев и ведения логов изменений. Он анализирует коммиты, извлекает информацию о модификациях в коде и записывает их в файлы логов.
+**Backend Change Logger** is a tool for automatically collecting changes from repositories and maintaining change logs. It analyzes commits, extracts information about code modifications, and records them in log files.
 
-### Основные функции:
+### Key Features:
 
-- Автоматический сбор изменений из Git-репозиториев
-- Создание и обновление файлов логов
-- Поддержка нескольких проектов и сервисов
-- Гибкая настройка через конфигурационные файлы
+- Automatic collection of changes from Git repositories
+- Creation and updating of log files
+- Support for multiple projects and services
+- Flexible configuration via configuration files
 
-## Установка и настройка
+## Installation and Setup
 
-### Требования
+### Requirements
 
 - Python 3.10+
-- Poetry (для управления зависимостями)
-- Доступ к Git-репозиториям
+- Poetry (for dependency management)
+- Access to Git repositories
 
-# Запуск проекта
+## Running the Project
 
-1. Установка Poetry с помощью pip:
+1. Install Poetry using pip:
    ```bash
    pip install poetry
    ```
-2. Запустить виртуальное окружение
+2. Start the virtual environment:
    ```bash
    poetry shell
    ```
-3. Установить зависимости
+3. Install dependencies:
    ```bash
    poetry install
    ```
-4. Задать настройки в переменых окружения:  
-   Пример для MacOS и Linux:
+4. Set environment variables:
+   Example for MacOS and Linux:
 
-   ```
-   export DYNACONF_GIT_LOGIN=<логин к репозиторию от куда забираем информацию>
-   export DYNACONF_GIT_PASSWORD=<пароль к репозиторию от куда забираем информацию>
-   export DYNACONF_GIT_LOGIN_CHANGELOGS=<логин к репозиторию куда надо пушить changelogs>
-   export DYNACONF_GIT_PASSWORD_CHANGELOGS=<пароль к репозиторию куда надо пушить changelogs>
-   export DYNACONF_REPO_URL=<url репозитория>
-   export DYNACONF_SRC_FOLDER=<папка репозитория в дял которой выполняем скрипт>
-   export DYNACONF_SAVE_RESULT_IN_REPO=<параметр для сохранения change_logs на удаленный репозиторий. True если надо сохранять. False если не надо. По умолчанию False>
-   export DYNACONF_REPO_URL_FOR_CHANGELOGS=<url репозитория куда надо пушить changelogs>
-   export DYNACONF_SRC_FOLDER_FOR_CHANGELOGS=<папка на удаленном репозитории куда будут сохраняться changelogs. По умолчанию changelogs.>
-   export DYNACONF_LAST_COMMIT_HASH=<хэш коммита с которого надо начинать формировать git log. По умолчанию все коммиты беруться>
-   export DYNACONF_LOCAL_REPO_PATH=<абсолютный путь к вашему локальному репозиторию. Если если переменная не задана,  то скрипт работает с удаленным репозиторием.>
-   ```
-
-   Пример для Windows:
-
-   ```
-   setx DYNACONF_GIT_LOGIN "<логин к репозиторию от куда забираем информацию>"
-   setx DYNACONF_GIT_PASSWORD "<пароль к репозиторию от куда забираем информацию>"
-   setx DYNACONF_GIT_LOGIN_CHANGELOGS "<логин к репозиторию куда надо пушить changelogs>"
-   setx DYNACONF_GIT_PASSWORD_CHANGELOGS "<пароль к репозиторию куда надо пушить changelogs>"
-   setx DYNACONF_REPO_URL "<url репозитория>"
-   setx DYNACONF_SRC_FOLDER "<папка репозитория в дял которой выполняем скрипт>"
-   setx DYNACONF_SAVE_RESULT_IN_REPO "<параметр для сохранения change_logs на удаленный репозиторий. True если надо сохранять. False если не надо. По умолчанию False>"
-   setx DYNACONF_REPO_URL_FOR_CHANGELOGS "<url репозитория куда надо пушить changelogs>"
-   setx DYNACONF_SRC_FOLDER_FOR_CHANGELOGS "<папка на удаленном репозитории куда будут сохраняться changelogs. По умолчанию changelogs.>"
-   setx DYNACONF_LAST_COMMIT_HASH "<хэш коммита с которого надо начинать формировать git log. По умолчанию все коммиты беруться>"
-   setx DYNACONF_LOCAL_REPO_PATH "<абсолютный путь к вашему локальному репозиторию. Если если переменная не задана,  то скрипт работает с удаленным репозиторием.>"
+   ```sh
+   export DYNACONF_GIT_LOGIN=<Git repository login for fetching information>
+   export DYNACONF_GIT_PASSWORD=<Git repository password for fetching information>
+   export DYNACONF_GIT_LOGIN_CHANGELOGS=<Git repository login for pushing changelogs>
+   export DYNACONF_GIT_PASSWORD_CHANGELOGS=<Git repository password for pushing changelogs>
+   export DYNACONF_REPO_URL=<Git repository URL>
+   export DYNACONF_SRC_FOLDER=<Repository folder where the script is executed>
+   export DYNACONF_SAVE_RESULT_IN_REPO=<Parameter to save changelogs to a remote repository. True to save, False otherwise. Default is False>
+   export DYNACONF_REPO_URL_FOR_CHANGELOGS=<Git repository URL for pushing changelogs>
+   export DYNACONF_SRC_FOLDER_FOR_CHANGELOGS=<Folder in the remote repository where changelogs will be stored. Default is 'changelogs'>
+   export DYNACONF_LAST_COMMIT_HASH=<Commit hash from which git log should start. If not set, all commits are considered>
+   export DYNACONF_LOCAL_REPO_PATH=<Absolute path to the local repository. If not set, the script works with the remote repository>
    ```
 
-   Или задать настройки можно в settings.toml:
+   Example for Windows:
 
+   ```sh
+   setx DYNACONF_GIT_LOGIN "<Git repository login for fetching information>"
+   setx DYNACONF_GIT_PASSWORD "<Git repository password for fetching information>"
+   setx DYNACONF_GIT_LOGIN_CHANGELOGS "<Git repository login for pushing changelogs>"
+   setx DYNACONF_GIT_PASSWORD_CHANGELOGS "<Git repository password for pushing changelogs>"
+   setx DYNACONF_REPO_URL "<Git repository URL>"
+   setx DYNACONF_SRC_FOLDER "<Repository folder where the script is executed>"
+   setx DYNACONF_SAVE_RESULT_IN_REPO "<Parameter to save changelogs to a remote repository. True to save, False otherwise. Default is False>"
+   setx DYNACONF_REPO_URL_FOR_CHANGELOGS "<Git repository URL for pushing changelogs>"
+   setx DYNACONF_SRC_FOLDER_FOR_CHANGELOGS "<Folder in the remote repository where changelogs will be stored. Default is 'changelogs'>"
+   setx DYNACONF_LAST_COMMIT_HASH "<Commit hash from which git log should start. If not set, all commits are considered>"
+   setx DYNACONF_LOCAL_REPO_PATH "<Absolute path to the local repository. If not set, the script works with the remote repository>"
    ```
+
+   Alternatively, settings can be defined in `settings.toml`:
+
+   ```toml
    [default]
    REPO_URL = "https://git.effectivetrade.ru/EFTR/EFTR2.git"
    SRC_FOLDER = "tools/"
@@ -79,20 +79,20 @@
    SAVE_RESULTS_IN_REPO = "False"
    ```
 
-   Данные авторизации для репозитория также можно задать в файле .env:
+   Authentication credentials for the repository can also be specified in the `.env` file:
 
+   ```sh
+   DYNACONF_GIT_LOGIN=<Git repository login for fetching information>
+   DYNACONF_GIT_PASSWORD=<Git repository password for fetching information>
+   DYNACONF_GIT_LOGIN_CHANGELOGS=<Git repository login for pushing changelogs>
+   DYNACONF_GIT_PASSWORD_CHANGELOGS=<Git repository password for pushing changelogs>
    ```
-   DYNACONF_GIT_LOGIN=<логин к репозиторию от куда забираем информацию>
-   DYNACONF_GIT_PASSWORD=<пароль к репозиторию от куда забираем информацию>
-   DYNACONF_GIT_LOGIN_CHANGELOGS=<логин к репозиторию куда надо пушить changelogs>
-   DYNACONF_GIT_PASSWORD_CHANGELOGS=<пароль к репозиторию куда надо пушить changelogs>
-   ```
 
-   Переменные окружения, заданные через export или setx, имеют приоритет над значениями, определенными в файлах конфигурации.
+   Environment variables set via `export` or `setx` take precedence over values defined in configuration files.
 
-5. Запустить скрипт get_commits.py:
+5. Run the script `get_commits.py`:
    ```bash
    python get_commits.py
    ```
 
-В корне проекта создастся папка `changelogs` в которой будут все коммиты.
+A `changelogs` folder will be created in the project root containing all the commit logs.
